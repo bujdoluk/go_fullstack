@@ -1,0 +1,20 @@
+
+# Enviroment variables
+.env
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Tests binaries built with "go test -c"
+*.test
+
+# Output of coverage tool
+*.out
+
+# Go workspace file
+go.work
+
