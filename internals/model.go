@@ -12,3 +12,11 @@ type TodoRequest struct {
 type TodoResponse struct {
 	Id string `json:"id,omitempty"`
 }
+
+type Feedback struct {
+	Title       string `json:"title,omitempty"`
+	Description string `json:"description,omitempty"`
+	Comments    int    `json:"comments,omitempty"`
+	Votes       int    `json:"votes,omitempty"`
+	Tag         string `json:"tag,omitempty"`
+}

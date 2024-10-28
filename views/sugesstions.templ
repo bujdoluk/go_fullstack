@@ -1,0 +1,24 @@
+package views
+
+type Feedback struct {
+    Title       string
+	Description string
+	Comments    int
+	Votes       int
+	Tag         string
+}
+
+templ Suggestions(feedbacks []*Feedback) {
+    <!DOCTYPE html>
+    <html lang="en">
+        for _, feedback := range feedbacks {
+            <section>
+                <button>{ feedback.Votes }</button>
+                <h4>{ feedback.Title }</h4>
+                <p>{ feedback.Description }</p>
+                <button>{ feedback.Tag }</button>
+                <button>{ feedback.Comments }</button>
+            </section>
+        }
+    </html>
+}

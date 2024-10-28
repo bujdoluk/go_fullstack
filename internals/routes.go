@@ -11,6 +11,7 @@ type Config struct {
 func (app *Config) Routes() {
 	//views
 	app.Router.GET("/", app.indexPageHandler())
+	app.Router.GET("/suggestions", app.suggestionsHandler())
 
 	//apis
 	app.Router.POST("/", app.createTodoHandler())

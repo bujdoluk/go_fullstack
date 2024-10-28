@@ -103,3 +103,32 @@ func (app *Config) getAllTodosService() ([]*Todo, error) {
 	todos = response.Records
 	return todos, nil
 }
+
+func (app *Config) getAllFeedbacksService() ([]*Feedback, error) {
+	var feedbacks []*Feedback
+
+	fullURL := fmt.Sprintf("%s:main/tables/feedback/query", baseURL)
+	client := &http.Client{}
+	req, err := createRequest("POST", fullURL, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+	var response struct {
+		Records []*Feedback `json:"records"`
+	}
+
+	decoder := json.NewDecoder(resp.Body)
+	if err := decoder.Decode(&response); err != nil {
+		return nil, err
+	}
+
+	feedbacks = response.Records
+	return feedbacks, nil
+}

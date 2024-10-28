@@ -42,6 +42,33 @@ func (app *Config) indexPageHandler() gin.HandlerFunc {
 	}
 }
 
+func (app *Config) suggestionsHandler() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		_, cancel := context.WithTimeout(context.Background(), appTimeout)
+		defer cancel()
+
+		feedbacks, err := app.getAllFeedbacksService()
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, err.Error())
+			return
+		}
+
+		var viewsFeedbacks []*views.Feedback
+		for _, feedback := range feedbacks {
+			viewsFeedback := &views.Feedback{
+				Title:       feedback.Title,
+				Description: feedback.Description,
+				Comments:    int(feedback.Comments),
+				Votes:       int(feedback.Votes),
+				Tag:         feedback.Tag,
+			}
+			viewsFeedbacks = append(viewsFeedbacks, viewsFeedback)
+
+			render(ctx, http.StatusOK, views.Suggestions(viewsFeedbacks))
+		}
+	}
+}
+
 func (app *Config) createTodoHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		_, cancel := context.WithTimeout(context.Background(), appTimeout)
